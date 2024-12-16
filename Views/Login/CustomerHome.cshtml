@@ -1,0 +1,36 @@
+﻿<h2>User Home Page</h2>
+
+<div>
+    @Html.ActionLink("Book Cylinder", "Customer_Booking_PageLoad", "Booking")
+</div>
+
+<div>
+    @Html.ActionLink("Cancel Booking", "Customer_Cancel_Booking_Click", "Login")
+</div>
+
+@* <div>
+    @Html.ActionLink("Edit Cylinder Details", "Cylinder_PageLoad", "Cylinder")
+</div> *@
+
+
+<div>
+    @Html.ActionLink("Go back to Login Page", "Login_PageLoad", "Login")
+</div>
+
+@{
+    try
+    {
+        if (TempData["msg"] != null)
+        {
+            <script>
+                alert('@TempData["msg"]');
+            </script>
+        }
+    }
+    catch (Exception e)
+    {
+        <script>
+            alert('@e');
+        </script>
+    }
+}

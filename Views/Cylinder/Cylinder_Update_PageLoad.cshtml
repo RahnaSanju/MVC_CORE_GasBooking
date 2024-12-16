@@ -1,0 +1,85 @@
+﻿@model MVC_CORE_Project.Models.CylinderCls
+
+<form asp-action="Cylinder_Update_Click" class="form-horizontal" method="post">
+    <div class="form-group">
+        <label class="control-label">Cylinder Type: </label>
+        @Html.DropDownList("ddlCylType", (SelectList)ViewBag.selCylType, "--Select--", new { @class = "form-control", @id = "cylType-ddl" })
+    </div>
+@*     Amount: <span id="amt"></span><br>
+    Total Stock: <span id="totstck"></span><br>
+    Filled: <span id="fild"></span><br>
+    Empty: <span id="empt"></span><br> *@
+    <div class="form-group">
+        <label class="control-label">Total Stock : </label>
+        <span id="totstck-wrapper"><input asp-for="TotalStock" class="form-control" id="totstck" required /></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Filled : </label>
+        <span id="fild-wrapper"><input asp-for="Filled" class="form-control" id="fild" required /></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Empty : </label>
+        <span id="empt-wrapper"><input asp-for="Empty" class="form-control" id="empt" /></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Amount : </label>
+        <span id="amt-wrapper"><input asp-for="Amount" class="form-control" id="amt" required /></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Update" class="btn btn-success" />
+    </div>
+
+    <div>
+        @Html.ActionLink("Go back to Home Page", "AdminHome", "Login")
+    </div>
+
+</form>
+
+<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.10.2.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        $('#cylType-ddl').change(function () {
+            debugger;
+            var cylinderId = $(this).val();
+            if (cylinderId) {
+                $.ajax({
+                    url: '@Url.Action("GetCylinderDetails", "Cylinder")',
+                    type: 'POST',
+                    data: { cylinderId: cylinderId },
+                    success: function (response) {
+
+                        $('#totstck-wrapper input').val(response.totstck || '');
+                        $('#amt-wrapper input').val(response.amt || '');
+                        $('#fild-wrapper input').val(response.fild || '');
+                        $('#empt-wrapper input').val(response.empt || '');
+                    },
+                    error: function () {
+                        $('#amt').text('Error fetching price.');
+                    }
+                });
+            } else {
+                $('#amt').val('');
+                $('#totstck').val('');
+                $('#fild').val('');
+                $('#empt').val('');
+            }
+        });
+    });
+</script>
+
+@{
+    if (TempData["msg"] != null)
+    {
+        if (TempData["msg"].ToString() != "")
+        {
+            <script>
+                alert('@TempData["msg"]');
+                document.getElementById(amt).value = "";
+                document.getElementById(totstck).value = "";
+                document.getElementById(empt).value = "";
+                document.getElementById(fild).value = "";
+            </script>
+        }
+
+    }
+}

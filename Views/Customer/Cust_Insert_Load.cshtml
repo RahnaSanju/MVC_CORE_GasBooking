@@ -1,0 +1,75 @@
+﻿@model MVC_CORE_Project.Models.CustomerCls
+
+<form asp-action="Cust_Insert_Click" class="form-horizontal" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label class="control-label">Customer Name : </label>
+        <input asp-for="custName" class="form-control" id="t1" required/>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Consumer No : </label>
+        <input asp-for="custConsNo" class="form-control" id="t2" required />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Address : </label>
+        <input asp-for="custAddr" class="form-control" id="t3" required />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Phone : </label>
+        <input asp-for="custPhone" class="form-control" id="t4" required />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Email : </label>
+        <input asp-for="custEmail" class="form-control" id="t5" required />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Photo : </label>
+        <input type="file" name="prfPhoto" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Username : </label>
+        <input asp-for="custUsrnm" class="form-control" id="t6" required />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Password : </label>
+        <input asp-for="custPwd" class="form-control" id="t7" required />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Confirm Password : </label>
+        <input asp-for="custCnfPwd" class="form-control" id="t8" required />
+        @Html.ValidationMessageFor(m=>m.custCnfPwd,"",new{@class="text-danger"})
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Insert" class="btn btn-success"/>
+    </div>
+    <div>
+        @Html.ActionLink("Go back to Login Page", "Login_PageLoad", "Login")
+    </div>
+
+</form>
+
+@{
+    if(TempData["msg"]!=null)
+    {
+        if (TempData["msg"].ToString() == "Username already exist")
+        {
+            <script>
+                alert('@TempData["msg"]');
+            </script>
+        }
+        else
+        {
+            <script>
+                alert('@TempData["msg"]');
+                document.getElementById(t1).value = "";
+                document.getElementById(t2).value = "";
+                document.getElementById(t3).value = "";
+                document.getElementById(t4).value = "";
+                document.getElementById(t5).value = "";
+                document.getElementById(t6).value = "";
+                document.getElementById(t7).value = "";
+                document.getElementById(t8).value = "";
+            </script>
+        }
+       
+    }
+}
